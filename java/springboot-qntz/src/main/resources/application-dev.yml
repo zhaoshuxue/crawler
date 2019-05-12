@@ -1,0 +1,61 @@
+#
+server:
+  port: 28080
+
+#
+spring:
+
+  jpa:
+    database-platform: com.zsx.config.SQLiteDialect
+
+  datasource:
+    url: jdbc:sqlite:/git/zhaoshuxue/crawler/java/springboot-qntz/qntz.db
+    username:
+    password:
+    driver-class-name: org.sqlite.JDBC
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    #    Druid 连接池配置
+    druid:
+      initial-size: 5
+      min-idle: 2
+      max-active: 10
+
+      #      Druid监控配置
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        login-username: druid
+        login-password: 123456
+
+# encoding
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+
+  freemarker:
+    template-loader-path: classpath:/templates
+    cache: false
+    charset: UTF-8
+    request-context-attribute: request
+
+  mvc:
+#     设定静态文件路径，js,css等
+    static-path-pattern: /static/**
+
+
+# mybatis配置
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+# 打印sql
+logging:
+  level:
+    com:
+      zsx:
+        dao: debug
