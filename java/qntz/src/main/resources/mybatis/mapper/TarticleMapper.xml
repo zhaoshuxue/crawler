@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsx.dao.TarticleDao">
+    <resultMap id="BaseResultMap" type="com.zsx.entity.Tarticle">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="href" jdbcType="VARCHAR" property="href"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="success" jdbcType="VARCHAR" property="success"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, title, href, content, success, create_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_article
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+
+    <insert id="insert" parameterType="com.zsx.entity.Tarticle">
+        insert into t_article (title, href, content, success, create_time)
+        values (#{title,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
+        , #{success,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsx.entity.Tarticle">
+        update t_article
+        <set>
+            <if test="success != null">
+                success = #{success,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!---->
+    <select id="selectByParams" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_article
+        <where>
+            <if test="search.title != null">
+                and title = #{search.title,jdbcType=VARCHAR}
+            </if>
+            <if test="search.href != null">
+                and href = #{search.href,jdbcType=VARCHAR}
+            </if>
+            <if test="search.success != null">
+                and success = #{search.success,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+</mapper>
