@@ -4,15 +4,12 @@ server:
 
 #
 spring:
-
-  jpa:
-    database-platform: com.zsx.config.SQLiteDialect
-
+#
   datasource:
-    url: jdbc:sqlite:/git/zhaoshuxue/crawler/java/springboot-qntz/qntz.db
-    username:
-    password:
-    driver-class-name: org.sqlite.JDBC
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
     #    Druid 连接池配置

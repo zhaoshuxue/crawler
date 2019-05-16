@@ -1,7 +1,6 @@
 package com.zsx.dao;
 
 import com.zsx.entity.Tarticle;
-import com.zsx.entity.Tpage;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

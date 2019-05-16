@@ -1,6 +1,5 @@
 package com.zsx.dao;
 
-import com.zsx.entity.Tarticle;
 import com.zsx.entity.Timage;
 import org.apache.ibatis.annotations.Param;
 
