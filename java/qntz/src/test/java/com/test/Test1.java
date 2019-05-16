@@ -113,7 +113,6 @@ public class Test1 {
 
     }
 
-<<<<<<< HEAD
     @Test
     public void t4() {
 
@@ -140,13 +139,12 @@ public class Test1 {
 
     @Test
     public void t5() {
-            JSONObject object = userService.analysisArticleContent(42);
-=======
+        JSONObject object = userService.analysisArticleContent(42);
+    }
 
     @Test
-    public void t4(){
+    public void t44() {
         System.out.println(123);
->>>>>>> 6c7730194b2db5e17bf3b9c9d83e370a6e443dcd
     }
 
 }
