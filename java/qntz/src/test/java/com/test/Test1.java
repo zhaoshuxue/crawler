@@ -45,13 +45,13 @@ public class Test1 {
 
     @Test
     public void t1() {
-        Integer n = 13;
 
+        Integer n = 2;
         boolean flag = true;
 
         while (flag) {
             System.out.println(8899);
-            System.out.println("开始下载第几页" + n);
+            System.out.println("开始下载第几页：" + n);
             JSONObject object = userService.addArticle(n);
             System.out.println(object.toJSONString());
             System.out.println();
@@ -69,7 +69,7 @@ public class Test1 {
 
     @Test
     public void t2() {
-        JSONObject object = userService.loadArticleContent(1);
+        JSONObject object = userService.loadArticleContent();
     }
 
     @Test
@@ -143,8 +143,34 @@ public class Test1 {
     }
 
     @Test
-    public void t44() {
-        System.out.println(123);
+    public void t6() {
+        JSONObject object = userService.addArticle(1);
+        System.out.println(object.toJSONString());
+    }
+
+    @Test
+    public void t7() {
+        int size = 10;
+
+        while(size > 0){
+            List<Tarticle> article = this.getArticle();
+            if (CollectionUtils.isEmpty(article)){
+                size = 0;
+            }else{
+                for (Tarticle tarticle : article) {
+                    userService.analysisArticleContentById(tarticle.getId());
+                }
+                size = article.size();
+            }
+        }
+    }
+
+
+    private List<Tarticle> getArticle() {
+        HashMap<String, Object> params = Maps.newHashMap();
+        params.put("success", "1");
+        PageHelper.startPage(1, 10, "id");
+        return tarticleDao.selectByParams(params);
     }
 
 }

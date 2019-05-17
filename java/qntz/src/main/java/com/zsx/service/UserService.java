@@ -16,14 +16,33 @@ public interface UserService {
     List<Tpage> getAll();
 
 
+    /**
+     * 根据页码获取文章集合
+     *
+     * @param n
+     * @return
+     */
     JSONObject addArticle(Integer n);
 
 
-    JSONObject loadArticleContent(int num);
+    /**
+     * 根据url把网页内容拉下来
+     *
+     * @return
+     */
+    JSONObject loadArticleContent();
 
 
     JSONObject analysisArticleContent(Integer size);
 
+
+    /**
+     * 根据id解析网页内容
+     *
+     * @param id
+     * @return
+     */
+    JSONObject analysisArticleContentById(Integer id);
 
 
     JsonTable getArticlePageList(Integer pageNum, Integer pageSize);
