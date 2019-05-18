@@ -7,10 +7,11 @@
         <result column="href" jdbcType="VARCHAR" property="href"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="success" jdbcType="VARCHAR" property="success"/>
+        <result column="imgs" jdbcType="VARCHAR" property="imgs"/>
         <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, title, href, content, success, create_time
+    id, title, href, content, success, imgs, create_time
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -19,11 +20,10 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-
     <insert id="insert" parameterType="com.zsx.entity.Tarticle">
         insert into t_article (title, href, content, success, create_time)
         values (#{title,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}
-        , #{success,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+        , #{success,jdbcType=VARCHAR}, #{imgs,jdbcType=VARCHAR}), #{createTime,jdbcType=VARCHAR})
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.zsx.entity.Tarticle">
         update t_article
@@ -33,6 +33,9 @@
             </if>
             <if test="content != null" >
                 content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="imgs != null" >
+                imgs = #{imgs,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -52,6 +55,9 @@
             </if>
             <if test="search.success != null">
                 and success = #{search.success,jdbcType=VARCHAR}
+            </if>
+            <if test="search.imgs != null">
+                and imgs = #{search.imgs,jdbcType=VARCHAR}
             </if>
         </where>
     </select>

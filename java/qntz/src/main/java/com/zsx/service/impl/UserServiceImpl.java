@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
                         System.out.println("8899 开始更新id= " + id + " 的网页：" + tarticle.getTitle());
                         try {
                             tarticleDao.updateByPrimaryKeySelective(tarticle);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
 
                             System.out.println("5566 更新失败了 " + id);
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
                         timages.add(timage);
                     }
                 }
-                if (CollectionUtils.isNotEmpty(timages)){
+                if (CollectionUtils.isNotEmpty(timages)) {
                     int i = timageDao.insertBatch(timages);
                     System.out.println("批量插入条数为： " + i);
                     if (i > 0) {
@@ -202,7 +202,7 @@ public class UserServiceImpl implements UserService {
                         int j = tarticleDao.updateByPrimaryKeySelective(updateTarticle);
                         System.out.println("更新状态：" + j);
                     }
-                }else{
+                } else {
                     Tarticle updateTarticle = new Tarticle();
                     updateTarticle.setId(pid);
                     updateTarticle.setSuccess("22");
@@ -224,7 +224,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject analysisArticleContentById(Integer id) {
         Tarticle tarticle = tarticleDao.selectByPrimaryKey(id);
-        if (tarticle == null){
+        if (tarticle == null) {
             return null;
         }
 //        文章主键
@@ -275,7 +275,7 @@ public class UserServiceImpl implements UserService {
                     timages.add(timage);
                 }
             }
-            if (CollectionUtils.isNotEmpty(timages)){
+            if (CollectionUtils.isNotEmpty(timages)) {
                 int i = timageDao.insertBatch(timages);
                 System.out.println("批量插入条数为： " + i);
                 if (i > 0) {
@@ -286,7 +286,7 @@ public class UserServiceImpl implements UserService {
                     int j = tarticleDao.updateByPrimaryKeySelective(updateTarticle);
                     System.out.println("更新状态：" + j);
                 }
-            }else{
+            } else {
 //                3 代表没有解析成功，需处理
                 Tarticle updateTarticle = new Tarticle();
                 updateTarticle.setId(pid);
@@ -296,6 +296,24 @@ public class UserServiceImpl implements UserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void updateArticleImageNum(Integer id) {
+//        tarticleDao
+        Integer num = 0;
+        HashMap<String, Object> params = Maps.newHashMap();
+        params.put("pid", id);
+        List<Timage> timages = timageDao.selectByParams(params);
+        if (CollectionUtils.isNotEmpty(timages)) {
+            num = timages.size();
+        }
+        Tarticle tarticle = new Tarticle();
+        tarticle.setId(id);
+        tarticle.setImgs(String.valueOf(num));
+
+        tarticleDao.updateByPrimaryKeySelective(tarticle);
+        System.out.println("imgs更新成功");
     }
 
     @Override

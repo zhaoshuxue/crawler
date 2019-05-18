@@ -28,6 +28,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class)
@@ -150,10 +151,13 @@ public class Test1 {
 
     @Test
     public void t7() {
+        HashMap<String, Object> params = Maps.newHashMap();
+        params.put("success", "1");
+
         int size = 10;
 
         while(size > 0){
-            List<Tarticle> article = this.getArticle();
+            List<Tarticle> article = this.getArticle(params);
             if (CollectionUtils.isEmpty(article)){
                 size = 0;
             }else{
@@ -166,11 +170,30 @@ public class Test1 {
     }
 
 
-    private List<Tarticle> getArticle() {
-        HashMap<String, Object> params = Maps.newHashMap();
-        params.put("success", "1");
-        PageHelper.startPage(1, 10, "id");
+    private List<Tarticle> getArticle(Map<String, Object> params) {
+        PageHelper.startPage(1, 100, "id");
         return tarticleDao.selectByParams(params);
     }
 
+    @Test
+    public void t8() {
+        HashMap<String, Object> params = Maps.newHashMap();
+        params.put("imgs", "");
+        int size = 1;
+
+        while(size > 0){
+            List<Tarticle> tarticles = this.getArticle(params);
+            if (CollectionUtils.isEmpty(tarticles)){
+                size = 0;
+            }else{
+                tarticles.parallelStream().forEach(tarticle -> {
+                    System.out.println("开始更新文章id： " + tarticle.getId());
+                    userService.updateArticleImageNum(tarticle.getId());
+                });
+                size = tarticles.size();
+            }
+        }
+    }
+
 }
+

@@ -6,7 +6,7 @@ server:
 spring:
 #
   datasource:
-    url: jdbc:mysql://:3306/qntz?characterEncoding=utf8&useSSL=true&autoReconnect=true
+    url: jdbc:mysql://proxyali:3306/qntz?characterEncoding=utf8&useSSL=true&autoReconnect=true
     username: qntz
     password: qntz
     driver-class-name: com.mysql.jdbc.Driver
@@ -22,6 +22,7 @@ spring:
       web-stat-filter:
         enabled: true
       stat-view-servlet:
+        enabled: true
         login-username: druid
         login-password: 123456
 

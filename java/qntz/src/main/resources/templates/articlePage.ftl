@@ -6,12 +6,14 @@
 
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-table/bootstrap-table.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.css"/>
+
     <style type="text/css">
         .dn{
             display: none;
         }
         .fixed-table-body {
-            height: auto;
+            height: auto !important;
         }
     </style>
 </head>
@@ -71,6 +73,7 @@
 <script type="text/javascript" src="${basePath}/static/js/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table.min.js"></script>
 <script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript" src="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.js"></script>
 
     <script type="text/javascript">
         var basePath = "${basePath}";
@@ -87,6 +90,7 @@
         function loadTable() {
             $('#table').bootstrapTable({
                 method: "post",
+                contentType:'application/x-www-form-urlencoded; charset=UTF-8',
                 url: basePath + "/articleList",
                 cache: false,
                 striped: true,
@@ -94,10 +98,11 @@
                 pageList: [5, 10, 20],
                 pageSize: 5,
                 pageNumber: 1,
+                showJumpto: true,
                 sidePagination: 'server',//设置为服务器端分页
                 //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
                 //设置为limit可以获取limit, offset, search, sort, order
-                queryParamsType: "undefined",
+                queryParamsType: "",
                 queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
                     return {
                         pageSize: params.pageSize, // 每页要显示的数据条数
@@ -132,8 +137,14 @@
                         align: 'center',
                         valign: 'middle',
                         formatter: function (value, row, index) { // 单元格格式化函数
-                            return value;
+                            var url = 'https://qingniantuzhai.com' + value;
+                            return '<a href="' + url + '" target="_blank">' + value + '</a>';
                         }
+                    }, {
+                        field: 'imgs',
+                        title: '图片个数',
+                        align: 'center',
+                        valign: 'middle'
                     }, {
                         field: 'success',
                         title: '状态',

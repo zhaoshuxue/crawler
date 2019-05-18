@@ -12,6 +12,7 @@ public class Tarticle implements Serializable {
     private String href;
     private String content;
     private String success;
+    private String imgs;
     private String createTime;
 
     public Integer getId() {
@@ -52,6 +53,14 @@ public class Tarticle implements Serializable {
 
     public void setSuccess(String success) {
         this.success = success;
+    }
+
+    public String getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(String imgs) {
+        this.imgs = imgs;
     }
 
     public String getCreateTime() {

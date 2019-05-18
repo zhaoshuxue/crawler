@@ -45,6 +45,9 @@ public interface UserService {
     JSONObject analysisArticleContentById(Integer id);
 
 
+    void updateArticleImageNum(Integer id);
+
+
     JsonTable getArticlePageList(Integer pageNum, Integer pageSize);
 
     JsonTable getImageList(Integer pid);

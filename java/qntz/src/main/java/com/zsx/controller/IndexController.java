@@ -25,6 +25,8 @@ public class IndexController {
             Integer pageNum,
             Integer pageSize
     ) {
+        System.out.println(pageNum);
+        System.out.println(pageSize);
         return userService.getArticlePageList(pageNum, pageSize);
     }
 

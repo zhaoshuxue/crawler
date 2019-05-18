@@ -78,13 +78,14 @@
     function loadTable() {
         $('#table').bootstrapTable({
             method: "post",
+            contentType:'application/x-www-form-urlencoded; charset=UTF-8',
             url: basePath + "/imageList",
             cache: false,
             striped: true,
             sidePagination: 'server',//设置为服务器端分页
             //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
             //设置为limit可以获取limit, offset, search, sort, order
-            queryParamsType: "undefined",
+            queryParamsType: "",
             queryParams: function (params) { // 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
                 return {
                     pid: "${pid}"
@@ -123,11 +124,11 @@
                             var arr = value.split('!@#');
                             var html = '';
                             for(var i=0, len=arr.length; i<len; i++){
-                                html += '<img src="' + arr[i] + '" style="width:100px;" />';
+                                html += '<img src="' + arr[i] + '" style="width:100%;" />';
                             }
                             return html;
                         }
-                        return '<img src="' + value + '" style="width:100px;" />';
+                        return '<img src="' + value + '" style="width:100%;" />';
                     }
                 }, {
                     field: 'status',
