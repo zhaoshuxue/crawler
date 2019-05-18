@@ -11,7 +11,7 @@
         }
 
         .fixed-table-body {
-            height: auto;
+            height: auto !important;
         }
     </style>
 </head>
