@@ -12,6 +12,7 @@ import com.zsx.dao.TpageDao;
 import com.zsx.entity.Tarticle;
 import com.zsx.entity.Timage;
 import com.zsx.entity.Tpage;
+import com.zsx.json.JsonData;
 import com.zsx.json.JsonTable;
 import com.zsx.service.UserService;
 import com.zsx.util.GetPageUtil;
@@ -346,5 +347,21 @@ public class UserServiceImpl implements UserService {
             return new JsonTable(null, 0L);
         }
         return JsonTable.toTable(Long.parseLong(String.valueOf(timages.size())), timages);
+    }
+
+    @Override
+    public JsonData updateImageStatus(Integer id, Integer status) {
+
+        Timage timage = timageDao.selectByPrimaryKey(id);
+        if (timage != null) {
+
+            Timage img = new Timage();
+            img.setId(id);
+            img.setStatus(status);
+            timageDao.updateByPrimaryKeySelective(img);
+            return JsonData.success("修改成功");
+        }
+
+        return JsonData.fail("修改失败");
     }
 }

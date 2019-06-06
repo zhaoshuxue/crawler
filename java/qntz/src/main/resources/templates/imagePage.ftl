@@ -170,17 +170,17 @@
                     title: '状态',
                     align: 'center',
                     valign: 'middle'
-//                }, {
-//                    title: "操作",
-//                    align: 'center',
-//                    valign: 'middle',
-//                    formatter: function (value, row, index) {
-//                        var cls = 'btn btn-primary btn-sm';
-//                        var btn_update = '<button class="' + cls + '" onclick="update(\'' + row.id + '\')">编辑</button>';
-//                        var btn_img = '<button class="' + cls + '" onclick="albumDetail(\'' + row.id + '\')">详情</button>';
-//                        var btn = btn_update + btn_img;
-//                        return btn;
-//                    }
+                }, {
+                    title: "操作",
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        var cls = 'btn btn-primary btn-sm';
+                        var btn_update = '<button class="' + cls + '" onclick="updateStatus(\'' + row.id + '\',\'1\')">收藏1</button>';
+                        var btn_img = '<button class="' + cls + '" onclick="updateStatus(\'' + row.id + '\', \'2\')">删除2</button>';
+                        var btn = btn_update + btn_img;
+                        return btn;
+                    }
                 }
             ],
             onLoadSuccess: function () {  //加载成功时执行
@@ -191,6 +191,27 @@
             }
         });
 
+    }
+
+    function updateStatus(id, status) {
+        $.ajax({
+            type: "get",
+            url: basePath + "/updateImageStatus",
+            data: {
+                id: id,
+                status: status
+            },
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data)
+                if (data.code == 200) {
+                    alert(data.message);
+                    $('#table').bootstrapTable("refresh");
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
     }
 
 

@@ -1,8 +1,10 @@
 package com.zsx.controller;
 
+import com.zsx.json.JsonData;
 import com.zsx.json.JsonTable;
 import com.zsx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,14 @@ public class IndexController {
             Integer pid
     ) {
         return userService.getImageList(pid);
+    }
+
+    @GetMapping("/updateImageStatus")
+    public JsonData updateImageStatus(
+            Integer id,
+            Integer status
+    ) {
+        return userService.updateImageStatus(id, status);
     }
 
 }

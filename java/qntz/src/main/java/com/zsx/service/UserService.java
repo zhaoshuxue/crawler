@@ -2,6 +2,7 @@ package com.zsx.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zsx.entity.Tpage;
+import com.zsx.json.JsonData;
 import com.zsx.json.JsonTable;
 
 import java.util.List;
@@ -52,4 +53,5 @@ public interface UserService {
 
     JsonTable getImageList(Integer pid);
 
+    JsonData updateImageStatus(Integer id, Integer status);
 }
