@@ -1,15 +1,11 @@
 package com.zsx.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zsx.entity.Tpage;
 import com.zsx.json.JsonTable;
 import com.zsx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Created by highness on 2018/6/23 0023.
@@ -23,11 +19,10 @@ public class IndexController {
     @PostMapping("/articleList")
     public JsonTable getUserList(
             Integer pageNum,
-            Integer pageSize
+            Integer pageSize,
+            @RequestParam(value = "success", defaultValue = "") String success
     ) {
-        System.out.println(pageNum);
-        System.out.println(pageSize);
-        return userService.getArticlePageList(pageNum, pageSize);
+        return userService.getArticlePageList(pageNum, pageSize, success);
     }
 
 

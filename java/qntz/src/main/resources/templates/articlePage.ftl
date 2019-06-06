@@ -6,60 +6,69 @@
 
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-table/bootstrap-table.min.css"/>
-    <link rel="stylesheet" type="text/css" href="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.css"/>
 
     <style type="text/css">
-        .dn{
+        .dn {
             display: none;
         }
+
         .fixed-table-body {
             height: auto !important;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div>
-            <button type="button" class="btn btn-default" id="search">查询</button>
-            <button type="button" class="btn btn-primary" id="add">新增</button>
+<div class="container">
+    <div role="form">
+        <div class="input-group">
+            <span class="" style="">状态</span>
+            <input class="form-control" type="text" id="success" value="2"/>
         </div>
-        <table id="table"></table>
     </div>
+    <div>
+        <button type="button" class="btn btn-default" id="search">查询</button>
+        <button type="button" class="btn btn-primary" id="add">新增</button>
+    </div>
+    <table id="table"></table>
+</div>
 
 
-    <!-- 模态框（Modal） -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel2" aria-hidden="true" style="top: 10%">
-        <div class="modal-dialog"  style="">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title">添加</h4>
-                </div>
-                <div id="detailDiv" class="modal-body" style="min-height:100px;">
-                    <div role="form">
-                        <div class="input-group">
-                            <span class="" style="">标题</span>
-                            <input class="form-control" id="title" placeholder="输入标题" />
-                        </div>
-                        <div class="input-group">
-                            <span class="" style="">发布日期</span>
-                            <input class="form-control" type="text" id="publish_date" onFocus="WdatePicker()"/>
-                        </div>
-                        <div class="input-group">
-                            <input name="tupian" id="tupian"  type="file" class="form-control" style="width:250px; display: none;" />
-                            <span class="btn btn-primary btn-sm" id="selectImg">请选择一张图片</span>
-                            <span class="btn btn-primary btn-sm dn" id="startUpload">请选择一张图片</span>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel2" aria-hidden="true" style="top: 10%">
+    <div class="modal-dialog" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div id="detailDiv" class="modal-body" style="min-height:100px;">
+                <div role="form">
+                    <div class="input-group">
+                        <span class="" style="">标题</span>
+                        <input class="form-control" id="title" placeholder="输入标题"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="" style="">发布日期</span>
+                        <input class="form-control" type="text" id="publish_date" onFocus="WdatePicker()"/>
+                    </div>
+                    <div class="input-group">
+                        <input name="tupian" id="tupian" type="file" class="form-control"
+                               style="width:250px; display: none;"/>
+                        <span class="btn btn-primary btn-sm" id="selectImg">请选择一张图片</span>
+                        <span class="btn btn-primary btn-sm dn" id="startUpload">请选择一张图片</span>
 
-                            <img id="loadedImgUrl" src="" style="" alt="暂无图片"/>
+                        <img id="loadedImgUrl" src="" style="" alt="暂无图片"/>
 
-                            <input type="hidden" id="imgUrl" />
-                            <input type="hidden" id="imgUuid" />
+                        <input type="hidden" id="imgUrl"/>
+                        <input type="hidden" id="imgUuid"/>
 
-                        </div>
-                        <button class="btn btn-primary" onclick="save()">保存</button>
+                    </div>
+                    <button class="btn btn-primary" onclick="save()">保存</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -69,28 +78,36 @@
         </div><!-- /.modal -->
     </div>
 
-<script type="text/javascript" src="${basePath}/static/js/jquery.min.js"></script>
-<script type="text/javascript" src="${basePath}/static/js/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table.min.js"></script>
-<script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
-<script type="text/javascript" src="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="${basePath}/static/js/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript"
+            src="${basePath}/static/js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.min.js"></script>
 
     <script type="text/javascript">
         var basePath = "${basePath}";
         $(function () {
             loadTable();
 
+            $("#search").click(function () {
+                console.log("执行查询");
+                $('#table').bootstrapTable("destroy");
+                loadTable()
+            });
+
 //
             $("#add").click(function () {
                 $('#addModal').modal();
             });
+
 
         });
 
         function loadTable() {
             $('#table').bootstrapTable({
                 method: "post",
-                contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 url: basePath + "/articleList",
                 cache: false,
                 striped: true,
@@ -109,7 +126,7 @@
                         pageNum: params.pageNumber, // 每页显示数据的开始行号
                         sort: params.sortName, // 要排序的字段
                         sortOrder: params.sortOrder, // 排序规则
-//                        districtId: $("#districtIdSelect").val(), // 额外添加的参数
+                        success: $("#success").val(), // 额外添加的参数
 //                        summary: $("#summary").val(),
 //                        village: $("#village").val(),
 //                        status: $("#status").val()
@@ -169,7 +186,7 @@
                     console.info("加载数据失败");
                 }
             });
-            
+
         }
 
         function save() {
@@ -179,21 +196,21 @@
             var imgUuid = $("#imgUuid").val();
 
             $.ajax({
-                type : "post",
-                url : basePath + "/album/add",
-                data : {
+                type: "post",
+                url: basePath + "/album/add",
+                data: {
                     title: title,
                     imgUrl: imgUrl,
                     imgUuid: imgUuid,
                     publish_date: publish_date
                 },
-                dataType:"JSON",
-                success : function(data){
-                    if(data.code == 200){
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == 200) {
                         alertMsg("保存成功");
                         $("#addModal").modal('hide');
                         $('#table').bootstrapTable("refresh");
-                    }else{
+                    } else {
                         alertMsg("保存失败");
                     }
                 }
@@ -202,18 +219,18 @@
 
         function updateStatus(id, status) {
             $.ajax({
-                type : "post",
-                url : basePath + "/album/updateAlbumStatus",
-                data : {
+                type: "post",
+                url: basePath + "/album/updateAlbumStatus",
+                data: {
                     albumId: id,
                     status: status
                 },
-                dataType:"JSON",
-                success : function(data){
-                    if(data.code == 200){
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == 200) {
                         alertMsg("修改成功");
                         $('#table').bootstrapTable("refresh");
-                    }else{
+                    } else {
                         alertMsg("修改失败");
                     }
                 }

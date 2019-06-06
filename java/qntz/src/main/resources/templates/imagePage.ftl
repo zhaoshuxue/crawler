@@ -13,10 +13,45 @@
         .fixed-table-body {
             height: auto !important;
         }
+
+        .imgWidth25{
+            width: 25%;
+        }
+        .imgWidth50{
+            width: 50%;
+        }
+        .imgWidth75{
+            width: 75%;
+        }
+        .imgWidth100{
+            width: 100%;
+        }
+
+        .changeImgWidth{
+            position: fixed;
+            left: 10px;
+            z-index: 99999999999999999999;
+            background-color: lightblue;
+            padding: 5px;
+        }
+        .changeImgWidth button{
+            display: block;
+        }
+
+
     </style>
 </head>
 <body>
 <div class="container">
+    <div class="changeImgWidth">
+        <button type="button" class="btn btn-default" onclick="javascript:$('img').attr('class', 'imgWidth25')">25%</button>
+        <button type="button" class="btn btn-default" onclick="javascript:$('img').attr('class', 'imgWidth50')">50%</button>
+        <button type="button" class="btn btn-default" onclick="javascript:$('img').attr('class', 'imgWidth75')">75%</button>
+        <button type="button" class="btn btn-default" onclick="javascript:$('img').attr('class', 'imgWidth100')">100%</button>
+    </div>
+
+    <div style="height: 20px"></div>
+
     <div>
         <button type="button" class="btn btn-default" id="search">查询</button>
         <button type="button" class="btn btn-primary" id="add">新增</button>
@@ -124,11 +159,11 @@
                             var arr = value.split('!@#');
                             var html = '';
                             for(var i=0, len=arr.length; i<len; i++){
-                                html += '<img src="' + arr[i] + '" style="width:100%;" />';
+                                html += '<img src="' + arr[i] + '" class="imgWidth100" />';
                             }
                             return html;
                         }
-                        return '<img src="' + value + '" style="width:100%;" />';
+                        return '<img src="' + value + '" class="imgWidth100" />';
                     }
                 }, {
                     field: 'status',

@@ -48,7 +48,7 @@ public interface UserService {
     void updateArticleImageNum(Integer id);
 
 
-    JsonTable getArticlePageList(Integer pageNum, Integer pageSize);
+    JsonTable getArticlePageList(Integer pageNum, Integer pageSize, String success);
 
     JsonTable getImageList(Integer pid);
 

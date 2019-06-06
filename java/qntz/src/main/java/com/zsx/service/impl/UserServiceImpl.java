@@ -16,6 +16,7 @@ import com.zsx.json.JsonTable;
 import com.zsx.service.UserService;
 import com.zsx.util.GetPageUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -317,9 +318,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JsonTable getArticlePageList(Integer pageNum, Integer pageSize) {
+    public JsonTable getArticlePageList(Integer pageNum, Integer pageSize, String success) {
         HashMap<String, Object> params = Maps.newHashMap();
-        params.put("success", "2");
+        if (StringUtils.isBlank(success)) {
+            params.put("success", "2");
+        } else {
+            params.put("success", success);
+        }
+
         PageHelper.startPage(pageNum, pageSize, "id");
         List<Tarticle> tarticles = tarticleDao.selectByParams(params);
         if (CollectionUtils.isEmpty(tarticles)) {
